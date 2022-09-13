@@ -6,7 +6,7 @@ This is the tool of the ASE'22 paper: [Data Leakage in Notebooks: Static Detecti
 ## How to build
 1. Install [souffle](https://souffle-lang.github.io/install), the datalog engine we use for our main analysis. Make sure that souffle could be directly invoked in command line.
 2. Pull and build our customized version of [pyright], the type inference engine we use: ```git submodule update --init --recursive ``` (please refer to the submodule for building the project).
-3. Install required Python packages in requirements.txt.
+3. Install required Python packages in requirements.txt. We use Python 3.8 for our tool; different Python versions might result in different parsed AST and unexpected errors.
 
 ## How to use
 1. Run analysis for a single Python file: ```python3 -m src.main /path/to/file```
