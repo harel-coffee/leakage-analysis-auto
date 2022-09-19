@@ -1,7 +1,7 @@
 # Leakage Analysis
 A static analysis tool to detect test data leakage in Python notebooks
 
-This is the tool of the ASE'22 paper: [Data Leakage in Notebooks: Static Detection and Better Processes](). For our evaluation scripts and materials, please refer to [this repo](https://github.com/malusamayo/GitHubAPI-Crawler).
+This is the tool of the ASE'22 paper: [Data Leakage in Notebooks: Static Detection and Better Processes](https://www.cs.cmu.edu/~cyang3/papers/ase22.pdf). An [online demo](http://feature.isri.cmu.edu/demo/) is also available. For our evaluation scripts and materials, please refer to [this repo](https://github.com/malusamayo/GitHubAPI-Crawler).
 
 ## How to build
 1. Install [souffle](https://souffle-lang.github.io/install), the datalog engine we use for our main analysis. Make sure that souffle could be directly invoked in command line.
