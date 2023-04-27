@@ -32,7 +32,7 @@ COPY . /app/leakage-analysis/
 
 # set up pyright
 WORKDIR /app/leakage-analysis/pyright
-RUN npm install --g lerna
+RUN npm install --g lerna@4.0.0
 RUN npm install 
 WORKDIR /app/leakage-analysis/pyright/packages/pyright
 RUN npm run build
