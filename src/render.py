@@ -136,7 +136,7 @@ def load_info(fact_path, filename, labels, info, invos=()):
     df = read_fact(fact_path, filename)
     def append_info(row):
         labels[row['invo']][(info, invos)] = None
-    df.apply(append_info, axis=1)
+    df.apply(append_info, axis=1, result_type="reduce")
     return df
 
 def to_html(input_path, fact_path, html_path, lineno_map):
@@ -183,7 +183,7 @@ def to_html(input_path, fact_path, html_path, lineno_map):
         labels[row['trainInvo']][("train-test", sorted_invo(row['testInvo'] + [row['trainInvo']]))] = None
         for testInvo in row['testInvo']:
             labels[testInvo][("test-train", sorted_invo(row['testInvo'] + [row['trainInvo']]))] = None
-    modelpairs.groupby("trainInvo")["testInvo"].apply(list).reset_index().apply(append_info, axis=1)
+    modelpairs.groupby("trainInvo")["testInvo"].apply(list).reset_index().apply(append_info, axis=1, result_type='reduce')
 
 
     leaksrc = read_fact(fact_path, "TaintStartsTarget.csv")
@@ -197,13 +197,13 @@ def to_html(input_path, fact_path, html_path, lineno_map):
     merged =  pd.merge(preleaks, leaksrc, left_on="src", right_on="from")
     def append_info(row):
         labels[row['testInvo']][("preprocessing_leak", sorted_invo(row['invo']))] = None
-    merged.groupby("testInvo")['invo'].apply(list).reset_index().apply(append_info, axis=1)
+    merged.groupby("testInvo")['invo'].apply(list).reset_index().apply(append_info, axis=1, result_type='reduce')
 
     # multi-test info
     multileaks1 = read_fact(fact_path, "Telemetry_MultiUseTestLeak.csv") 
     def append_info(row):
         labels[row['invo']][("test_multiuse", sorted_invo(row['invo2'] + [row['invo']]))] = None
-    multileaks1.groupby("invo")['invo2'].apply(list).reset_index().apply(append_info, axis=1)
+    multileaks1.groupby("invo")['invo2'].apply(list).reset_index().apply(append_info, axis=1, result_type='reduce')
 
     # no test info
     load_info(fact_path, "NoTestData.csv", labels, "no_test")
